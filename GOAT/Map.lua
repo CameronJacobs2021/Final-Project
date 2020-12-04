@@ -42,7 +42,7 @@ function Map:init()
 
     self.spritesheet = love.graphics.newImage('graphics/spritesheet.png')
     self.sprites = generateQuads(self.spritesheet, 16, 16)
-    self.music = love.audio.newSource('sounds/music.wav', 'static')
+    self.music = love.audio.newSource('sounds/JJD.mp3', 'static')
 
     self.tileWidth = 16
     self.tileHeight = 16
@@ -149,8 +149,8 @@ function Map:init()
     end
 
     -- start the background music
-   -- self.music:setLooping(true)
-    --self.music:play()
+    self.music:setLooping(true)
+    self.music:play()
 end
 
 -- return whether a given tile is collidable
@@ -252,12 +252,23 @@ function Map:render()
 
     self.player:render()
 
-    if gameState then 
+    if gameState1 then 
 
         love.graphics.setDefaultFilter('nearest','nearest')
-        love.graphics.setFont(love.graphics.newFont('fonts/font.ttf'), 20)
+        winFont = love.graphics.newFont('fonts/font.ttf', 32)
+        love.graphics.setFont(winFont)
         love.graphics.clear(225/255,140/255,0,1)
-        love.graphics.printf("You Win!", 0, VIRTUAL_HEIGHT/2, VIRTUAL_WIDTH + 120, 'center')
+        love.graphics.printf("You Win!", -125, self.tileHeight * ((self.mapHeight - 2) / 2) - 175 , self.player.x *2 + 30  , 'center')
+    
+    elseif gameState2 then 
+        love.graphics.setDefaultFilter('nearest','nearest')
+        winFont = love.graphics.newFont('fonts/font.ttf', 32)
+        love.graphics.setFont(winFont)
+        love.graphics.clear(225/255,140/255,0,1)
+        love.graphics.printf("You Lost!", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 175 , self.player.x *2 + 30  , 'center')
+    else
+        gameState1 = false
+        gameState2= false
     end
 
 end

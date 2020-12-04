@@ -13,7 +13,8 @@ require 'Animation'
 require 'Map'
 require 'Player'
 
-gameState = false
+gameState1 = false
+gameState2 = false
 -- close resolution to NES but 16:9
 VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
@@ -74,7 +75,7 @@ end
 
 -- called whenever a key is pressed
 function love.keypressed(key)
-    if key == 'escape' then
+    if key == 'escape' or key == 'return' or key == 'enter' then
         love.event.quit()
     end
 

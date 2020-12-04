@@ -49,6 +49,7 @@ function Player:init(map)
     self.y = map.tileHeight * ((map.mapHeight - 2) / 2) - self.height
     self.x = map.tileWidth * 10
 
+
     -- initialize all player animations
     self.animations = {
         ['idle'] = Animation({
@@ -117,9 +118,11 @@ function Player:init(map)
             elseif love.keyboard.isDown('left') then
                 self.direction = 'left'
                 self.dx = -WALKING_SPEED
+
             elseif love.keyboard.isDown('right') then
                 self.direction = 'right'
                 self.dx = WALKING_SPEED
+
             else
                 self.dx = 0
                 self.state = 'idle'
@@ -129,6 +132,7 @@ function Player:init(map)
             -- check for collisions moving left and right
             self:checkRightCollision()
             self:checkLeftCollision()
+
 
 
 
@@ -177,7 +181,7 @@ function Player:init(map)
                 self.animation = self.animations['idle']
                 self.y = (self.map:tileAt(self.x, self.y + self.height).y - 1) * self.map.tileHeight - self.height
 
-                gameState = true
+                gameState1 = true
 
             elseif self.map:mcollides(self.map:tileAt(self.x, self.y + self.height)) or
             self.map:mcollides(self.map:tileAt(self.x + self.width - 1, self.y + self.height)) then
@@ -188,9 +192,9 @@ function Player:init(map)
                 self.animation = self.animations['idle']
                 self.y = (self.map:tileAt(self.x, self.y + self.height).y - 1) * self.map.tileHeight - self.height
 
-                gameState = true
+                gameState2 = true
             else
-                gameState = false
+                gameState2 = false
             end
 
             -- check for collisions moving left and right
@@ -217,7 +221,7 @@ function Player:calculateJumps()
             if self.map:tileAt(self.x, self.y).id == MUSHROOM_TOP or
             self.map:tileAt(self.x + self.width - 1, self.y).id == MUSHROOM_TOP then
 
-                gameState = true
+                gameState2 = true
             end
         end
     end
@@ -247,7 +251,7 @@ function Player:checkLeftCollision()
         elseif self.map:fcollides(self.map:tileAt(self.x - 1, self.y)) or
             self.map:fcollides(self.map:tileAt(self.x - 1, self.y + self.height - 1)) then
 
-            gameState = true
+            gameState1 = true
 
             -- if so, reset velocity and position and change state
             self.dx = 0
@@ -256,13 +260,13 @@ function Player:checkLeftCollision()
         elseif self.map:mcollides(self.map:tileAt(self.x - 1, self.y)) or
         self.map:mcollides(self.map:tileAt(self.x - 1, self.y + self.height - 1)) then
 
-            gameState = true
+            gameState2 = true
 
             -- if so, reset velocity and position and change state
             self.dx = 0
             self.x = self.map:tileAt(self.x - 1, self.y).x * self.map.tileWidth
         else
-            gameState = false
+            gameState1 = false
         end
     end
 end
@@ -284,7 +288,7 @@ function Player:checkRightCollision()
         elseif self.map:fcollides(self.map:tileAt(self.x + self.width, self.y)) or
         self.map:fcollides(self.map:tileAt(self.x + self.width, self.y + self.height - 1)) then
 
-            gameState = true
+            gameState1 = true
 
             -- if so, reset velocity and position and change state
             self.dx = 0
@@ -293,13 +297,13 @@ function Player:checkRightCollision()
         elseif self.map:mcollides(self.map:tileAt(self.x + self.width, self.y)) or
         self.map:mcollides(self.map:tileAt(self.x + self.width, self.y + self.height - 1)) then
 
-            gameState = true
+            gameState2 = true
 
             -- if so, reset velocity and position and change state
             self.dx = 0
             self.x = self.map:tileAt(self.x - 1, self.y).x * self.map.tileWidth
         else 
-            gameState = false
+            gameState1 = false
         end
     end
 end
