@@ -22,6 +22,7 @@ VIRTUAL_HEIGHT = 243
 -- actual window resolution
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
+x = love.math.random(8)
 
 -- seed RNG
 math.randomseed(os.time())

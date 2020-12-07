@@ -37,6 +37,7 @@ BLOCK = 9
 -- a speed to multiply delta time to scroll map; smooth value
 local SCROLL_SPEED = 62
 
+
 -- constructor for our map object
 function Map:init()
 
@@ -252,20 +253,37 @@ function Map:render()
 
     self.player:render()
 
+    
+
     if gameState1 then 
 
         love.graphics.setDefaultFilter('nearest','nearest')
         winFont = love.graphics.newFont('fonts/font.ttf', 32)
+        minFont = love.graphics.newFont('fonts/font.ttf', 8)
         love.graphics.setFont(winFont)
         love.graphics.clear(225/255,140/255,0,1)
-        love.graphics.printf("You Win!", -125, self.tileHeight * ((self.mapHeight - 2) / 2) - 175 , self.player.x *2 + 30  , 'center')
+        tbl = {'graphics/Pic1.jpg','graphics/Pic2.jpg','graphics/Pic3.jpg','graphics/Pic4.jpg','graphics/Pic5.jpeg','graphics/Pic6.png','graphics/Pic7.jpg','graphics/Pic8.jpg'}
+        meme = love.graphics.newImage(tbl[x])
+        love.graphics.draw(meme, (self.player.x) - 200, self.mapHeight / 2 + 40)
+        love.graphics.printf("You Win!", -125, self.tileHeight * ((self.mapHeight - 2) / 2) - 200 , self.player.x *2 + 30  , 'center')
+        love.graphics.setFont(minFont)
+        love.graphics.printf("Your won a meme as your prize! Press enter/return to exit.", -125, self.tileHeight * ((self.mapHeight - 2) / 2) - 170 , self.player.x *2 + 30  , 'center')
     
     elseif gameState2 then 
+        midFont = love.graphics.newFont('fonts/font.ttf', 11)
         love.graphics.setDefaultFilter('nearest','nearest')
         winFont = love.graphics.newFont('fonts/font.ttf', 32)
         love.graphics.setFont(winFont)
         love.graphics.clear(225/255,140/255,0,1)
         love.graphics.printf("You Lost!", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 175 , self.player.x *2 + 30  , 'center')
+        love.graphics.setFont(midFont)
+        love.graphics.printf("Oh no! You didn't make it! You need to try again", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 120 , self.player.x *2 + 30  , 'center')
+        love.graphics.printf("in order to win your special prize!", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 106 , self.player.x *2 + 30  , 'center')
+        love.graphics.printf("Press enter/return to exit so you can try again.", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 92 , self.player.x *2 + 30  , 'center')
+        love.graphics.setFont(winFont)
+        love.graphics.printf(":(", -10, self.tileHeight * ((self.mapHeight - 2) / 2) - 69 , self.player.x *2 + 30  , 'center')
+
+
     else
         gameState1 = false
         gameState2= false
